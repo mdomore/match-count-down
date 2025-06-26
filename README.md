@@ -1,4 +1,4 @@
-# Match Count Down ⏱️
+# Match Count Down
 
 A modern web application for displaying match timers and scoreboards for various sports.
 
