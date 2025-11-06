@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:8003:3000"  # Next.js frontend
+      - "127.0.0.1:8004:3001"   # NestJS backend
+    restart: unless-stopped
+

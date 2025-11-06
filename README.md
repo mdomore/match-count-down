@@ -110,7 +110,7 @@ Match Count Down is a responsive web application that allows users to:
 - **Database**: PostgreSQL + Prisma
 - **Authentication**: NextAuth.js or Auth0
 - **Payments**: Stripe
-- **Hosting**: Vercel (frontend) + Railway/Render (backend)
+- **Hosting**: Docker (frontend + backend)
 - **Monitoring**: Sentry + Analytics
 
 ## Getting Started
