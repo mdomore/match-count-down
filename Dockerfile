@@ -1,5 +1,5 @@
 # Stage 1: Build Next.js frontend
-FROM node:18-alpine as frontend-builder
+FROM node:18-alpine AS frontend-builder
 
 WORKDIR /app/frontend
 
@@ -11,32 +11,34 @@ RUN npm install
 COPY frontend/ ./
 RUN npm run build
 
-# Stage 2: Build NestJS backend
-FROM node:18-alpine as backend-builder
+# Stage 2: Prepare FastAPI backend dependencies
+FROM python:3.11-slim AS backend-builder
 
+ENV PIP_NO_CACHE_DIR=1
 WORKDIR /app/backend
 
-# Copy package files first for better caching
-COPY backend/package*.json ./
-RUN npm install
+COPY backend/requirements.txt .
+RUN pip install --upgrade pip && pip wheel --wheel-dir /wheels -r requirements.txt
+COPY backend/ .
 
-# Copy backend source and build
-COPY backend/ ./
-RUN npm run build
+# Stage 3: Final image with Node.js, Python, and supervisor
+FROM node:18-slim
 
-# Stage 3: Final image with supervisor and node
-FROM node:18-alpine
+ENV PIP_NO_CACHE_DIR=1
 
-# Install supervisor in one layer
-RUN apk add --no-cache supervisor && \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends python3 python3-venv python3-pip supervisor && \
+    rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/log/backend /var/log/frontend
 
 WORKDIR /app
 
-# Copy built backend
-COPY --from=backend-builder /app/backend/dist ./backend/dist
-COPY --from=backend-builder /app/backend/node_modules ./backend/node_modules
-COPY --from=backend-builder /app/backend/package*.json ./backend/
+# Copy FastAPI backend code and dependencies
+COPY --from=backend-builder /app/backend /backend
+COPY --from=backend-builder /wheels /wheels
+RUN python3 -m venv /backend/.venv && \
+    /backend/.venv/bin/pip install --no-cache-dir /wheels/* && \
+    rm -rf /wheels
 
 # Copy built Next.js frontend (standalone output)
 COPY --from=frontend-builder /app/frontend/.next/standalone ./
