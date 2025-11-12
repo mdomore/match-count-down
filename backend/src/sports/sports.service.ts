@@ -19,6 +19,34 @@ export class SportsService {
       description: 'Association football with two 45-minute periods'
     },
     {
+      id: 'football-u10',
+      name: 'Football U10',
+      defaultDuration: 1500,
+      periods: 2,
+      description: 'Youth football with two 25-minute periods'
+    },
+    {
+      id: 'football-u11',
+      name: 'Football U11',
+      defaultDuration: 1500,
+      periods: 2,
+      description: 'Youth football U11 with two 25-minute periods'
+    },
+    {
+      id: 'football-u12',
+      name: 'Football U12',
+      defaultDuration: 1800,
+      periods: 2,
+      description: 'Youth football U12 with two 30-minute periods'
+    },
+    {
+      id: 'football-u13',
+      name: 'Football U13',
+      defaultDuration: 1800,
+      periods: 2,
+      description: 'Youth football U13 with two 30-minute periods'
+    },
+    {
       id: 'basketball',
       name: 'Basketball',
       defaultDuration: 1200,

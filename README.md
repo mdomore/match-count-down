@@ -169,11 +169,15 @@ npm run dev
 ## Supported Sports
 
 - **Football**: 2 periods of 45 minutes each
+- **Football U10**: 2 periods of 25 minutes each
+- **Football U11**: 2 periods of 25 minutes each
+- **Football U12**: 2 periods of 30 minutes each
+- **Football U13**: 2 periods of 30 minutes each
 - **Basketball**: 4 quarters of 12 minutes each
 - **Tennis**: 3 sets of 30 minutes each
 - **Volleyball**: 5 sets of 30 minutes each
-- **Horseball**: 2 periods of 10 minutes each
-- **Custom**: Configurable duration and periods
+- **Horseball**: 2 periods of 10 minutes each with a 3-minute intermission and one 30-second timeout per coach per period
+- **Custom**: Configurable periods with per-period durations and active period selection
 
 ## Project Structure
 
